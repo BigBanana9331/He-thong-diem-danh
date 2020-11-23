@@ -3,6 +3,10 @@ import cv2
 import os
 import pickle
 import time
+import db 
+
+myDB = db.connectDb()
+cursor = myDB.cursor()
 
 def gstreamer_pipeline(
     capture_width=3280,
@@ -65,6 +69,8 @@ while True:
         cv2.rectangle(frame,(left,top),(right, bottom),(0,0,255),2)
         cv2.putText(frame,name,(left,top-6),font,.75,(0,0,255),2)
         print("Day la mat cua: ", name)
+        data = (1, name)
+        db.updateStudentsStatus(myDB, cursor, data)
     dt=time.time()-timeStamp
     fps=1/dt
     fpsReport=.90*fpsReport + .1*fps
