@@ -8,6 +8,18 @@ He thong diem Danh
 
 Ta duoc model train.pkl
 
+# B3: Tao file constant
+
+Voi noi dung:
+    ```
+    dbInfor = {
+	    "host":"localhost",
+        "user":"user1",
+        "password":"mypass",
+        "database":"diemdanh"
+    }
+    ```
+
 # B2: Tren Jetson Nano chay:
 ```
     #: python ./faceRecognition-jetson.py
@@ -21,3 +33,4 @@ Neu tren Windows chay:
 # Stack
 MySQL
 OpenCV2
+
