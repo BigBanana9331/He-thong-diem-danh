@@ -4,6 +4,8 @@ import os
 import pickle
 import time
 import db 
+import numpy as np
+from threading import Thread
 
 myDB = db.connectDb()
 cursor = myDB.cursor()
@@ -35,12 +37,14 @@ def gstreamer_pipeline(
         )
     )
 
-print(cv2.version)
+print(cv2.__version__)
+
 fpsReport=0
 scaleFactor=.25
 
 Encodings=[]
 Names=[]
+process=True
 
 with open('train.pkl','rb') as f:
     Names=pickle.load(f)
@@ -53,24 +57,38 @@ timeStamp=time.time()
 while True:
     _,frame=cam.read()
     frameSmall=cv2.resize(frame,(0,0),fx=scaleFactor,fy=scaleFactor)
-    frameRGB=cv2.cvtColor(frameSmall,cv2.COLOR_BGR2RGB)
+    frameRGB = frameSmall[:, :, ::-1]
+    # frameRGB=cv2.cvtColor(frameSmall,cv2.COLOR_BGR2RGB)
     facePositions=face_recognition.face_locations(frameRGB,model='cnn')
     allEncodings=face_recognition.face_encodings(frameRGB,facePositions)
+
+    recogName = ""
+    # if process:
+    #     facePositions=face_recognition.face_locations(frameRGB,model='cnn')
+    #     allEncodings=face_recognition.face_encodings(frameRGB,facePositions)
     for (top,right,bottom,left),face_encoding in zip(facePositions,allEncodings):
         name='Unkown Person'
         matches=face_recognition.compare_faces(Encodings,face_encoding)
-        if True in matches:
-            first_match_index=matches.index(True)
-            name=Names[first_match_index]
+        # if True in matches:
+        #     first_match_index=matches.index(True)
+        #     name=Names[first_match_index]
+        face_distances = face_recognition.face_distance(Encodings, face_encoding)
+        best_match_index = np.argmin(face_distances)
+        if matches[best_match_index]:
+            name = Encodings[best_match_index]
+
         top=int(top/scaleFactor)
         right=int(right/scaleFactor)
         bottom=int(bottom/scaleFactor)
         left=int(left/scaleFactor)
+
         cv2.rectangle(frame,(left,top),(right, bottom),(0,0,255),2)
         cv2.putText(frame,name,(left,top-6),font,.75,(0,0,255),2)
         print("Day la mat cua: ", name)
-        data = (1, name)
-        db.updateStudentsStatus(myDB, cursor, data)
+        recogName = name
+    
+    data = (1, recogName)
+    db.updateStudentsStatus(myDB, cursor, data)
     dt=time.time()-timeStamp
     fps=1/dt
     fpsReport=.90*fpsReport + .1*fps

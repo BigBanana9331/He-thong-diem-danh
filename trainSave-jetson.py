@@ -8,7 +8,7 @@ Encodings=[]
 Names=[]
 j=0
  
-for root, dirs, files in os.walk("demoImages\known"):
+for root, dirs, files in os.walk("demoImages/known"):
     #print(files)
     for file in files:
         path=os.path.join(root,file)

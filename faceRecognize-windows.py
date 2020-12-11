@@ -4,7 +4,7 @@ import os
 import pickle
 import time
 import db 
-
+import numpy as np
 myDB = db.connectDb()
 cursor = myDB.cursor()
 
@@ -26,15 +26,20 @@ timeStamp=time.time()
 while True:
     _,frame=cam.read()
     frameSmall=cv2.resize(frame,(0,0),fx=scaleFactor,fy=scaleFactor)
-    frameRGB=cv2.cvtColor(frameSmall,cv2.COLOR_BGR2RGB)
+    # frameRGB=cv2.cvtColor(frameSmall,cv2.COLOR_BGR2RGB)
+    frameRGB = frameSmall[:, :, ::-1]
     facePositions=face_recognition.face_locations(frameRGB,model='cnn')
     allEncodings=face_recognition.face_encodings(frameRGB,facePositions)
     for (top,right,bottom,left),face_encoding in zip(facePositions,allEncodings):
         name='Unkown Person'
         matches=face_recognition.compare_faces(Encodings,face_encoding)
-        if True in matches:
-            first_match_index=matches.index(True)
-            name=Names[first_match_index]
+        # if True in matches:
+        #     first_match_index=matches.index(True)
+        #     name=Names[first_match_index]
+        face_distances = face_recognition.face_distance(Encodings, face_encoding)
+        best_match_index = np.argmin(face_distances)
+        if matches[best_match_index]:
+            name = Names[best_match_index]
         top=int(top/scaleFactor)
         right=int(right/scaleFactor)
         bottom=int(bottom/scaleFactor)

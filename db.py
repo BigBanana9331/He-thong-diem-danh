@@ -12,7 +12,7 @@ def connectDb():
 # "CREATE TABLE IF NOT EXISTS students (id int(11) NOT NULL AUTO_INCREMENT, name VARCHAR(255) NOT NULL UNIQUE, username VARCHAR(255) NOT NULL UNIQUE, status bool default 0, PRIMARY KEY (id))"
 
 def updateStudentsStatus(mydb, cursor, data):
-	sql = "UPDATE students set status = %s WHERE username = %s"
+	sql = "UPDATE attenders set status = %s WHERE username = %s"
 	cursor.execute(sql, data)
 	mydb.commit()
 	print(cursor.rowcount, "student(s) affected.")
