@@ -3,13 +3,13 @@ import cv2
 import os
 import pickle
 print(cv2.__version__)
-
-Encodings = []
-Names = []
-j = 0
-
+ 
+Encodings=[]
+Names=[]
+j=0
+ 
 for root, dirs, files in os.walk("demoImages/known"):
-    # print(files)
+    #print(files)
     for file in files:
         path = os.path.join(root, file)
         print(path)

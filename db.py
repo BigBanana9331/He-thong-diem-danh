@@ -14,7 +14,8 @@ def connectDb():
 
 
 def updateStudentsStatus(mydb, cursor, data):
-    sql = "UPDATE attenders set status = %s WHERE username = %s"
-    cursor.execute(sql, data)
-    mydb.commit()
-    print(cursor.rowcount, "student(s) affected.")
+	sql = "UPDATE attenders set status = %s WHERE username = %s"
+	cursor.execute(sql, data)
+	mydb.commit()
+	print(cursor.rowcount, "student(s) affected.")
+
