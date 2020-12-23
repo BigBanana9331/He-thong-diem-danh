@@ -50,8 +50,8 @@ with open('train.pkl','rb') as f:
     Names=pickle.load(f)
     Encodings=pickle.load(f)
 font=cv2.FONT_HERSHEY_SIMPLEX
-
-cam = cv2.VideoCapture(gstreamer_pipeline(), cv2.CAP_GSTREAMER)
+cam= cv2.VideoCapture(0)
+# cam = cv2.VideoCapture(gstreamer_pipeline(), cv2.CAP_GSTREAMER*)
 
 timeStamp=time.time()
 while True:
@@ -72,10 +72,10 @@ while True:
         # if True in matches:
         #     first_match_index=matches.index(True)
         #     name=Names[first_match_index]
-        face_distances = face_recognition.face_distance(Encodings, face_encoding)
+        face_distances = face_recognition.face_distance(Encodings,face_encoding)
         best_match_index = np.argmin(face_distances)
         if matches[best_match_index]:
-            name = Encodings[best_match_index]
+            name = Names[best_match_index]
 
         top=int(top/scaleFactor)
         right=int(right/scaleFactor)

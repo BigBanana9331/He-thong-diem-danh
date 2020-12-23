@@ -9,6 +9,7 @@ myDB = db.connectDb()
 cursor = myDB.cursor()
 
 print(cv2.version)
+
 fpsReport=0
 scaleFactor=.25
 
@@ -44,6 +45,7 @@ while True:
         right=int(right/scaleFactor)
         bottom=int(bottom/scaleFactor)
         left=int(left/scaleFactor)
+        
         cv2.rectangle(frame,(left,top),(right, bottom),(0,0,255),2)
         cv2.putText(frame,name,(left,top-6),font,.75,(0,0,255),2)
         print("Day la mat cua: ", name)
