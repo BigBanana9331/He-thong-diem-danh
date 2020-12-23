@@ -13,17 +13,17 @@ print(cv2.version)
 fpsReport=0
 scaleFactor=.25
 
-Encodings=[]
-Names=[]
+Encodings = []
+Names = []
 
-with open('train.pkl','rb') as f:
-    Names=pickle.load(f)
-    Encodings=pickle.load(f)
-font=cv2.FONT_HERSHEY_SIMPLEX
+with open('train.pkl', 'rb') as f:
+    Names = pickle.load(f)
+    Encodings = pickle.load(f)
+font = cv2.FONT_HERSHEY_SIMPLEX
 
-cam= cv2.VideoCapture(0)
+cam = cv2.VideoCapture(0)
 
-timeStamp=time.time()
+timeStamp = time.time()
 while True:
     _,frame=cam.read()
     frameSmall=cv2.resize(frame,(0,0),fx=scaleFactor,fy=scaleFactor)
@@ -49,19 +49,20 @@ while True:
         cv2.rectangle(frame,(left,top),(right, bottom),(0,0,255),2)
         cv2.putText(frame,name,(left,top-6),font,.75,(0,0,255),2)
         print("Day la mat cua: ", name)
-        data = (1, name)
+        data = ("in", name)
         db.updateStudentsStatus(myDB, cursor, data)
 
-    dt=time.time()-timeStamp
-    fps=1/dt
-    fpsReport=.90*fpsReport + .1*fps
-    print('fps is:',round(fpsReport,1))
-    timeStamp=time.time()
-    cv2.rectangle(frame,(0,0),(100,40),(0,0,255),-1)
-    cv2.putText(frame,str(round(fpsReport,1))+ 'fps',(0,25),font,.75,(0,255,255,2))
-    cv2.imshow('Picture',frame)
-    cv2.moveWindow('Picture',0,0)
-    if cv2.waitKey(1)==ord('q'):
+    dt = time.time()-timeStamp
+    fps = 1/dt
+    fpsReport = .90*fpsReport + .1*fps
+    print('fps is:', round(fpsReport, 1))
+    timeStamp = time.time()
+    cv2.rectangle(frame, (0, 0), (100, 40), (0, 0, 255), -1)
+    cv2.putText(frame, str(round(fpsReport, 1)) + 'fps',
+                (0, 25), font, .75, (0, 255, 255, 2))
+    cv2.imshow('Picture', frame)
+    cv2.moveWindow('Picture', 0, 0)
+    if cv2.waitKey(1) == ord('q'):
         break
 cam.release()
 cv2.destroyAllWindows()
