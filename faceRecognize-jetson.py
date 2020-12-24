@@ -50,9 +50,8 @@ process=True
 with open('train.pkl','rb') as f:
     Names=pickle.load(f)
     Encodings=pickle.load(f)
-font=cv2.FONT_HERSHEY_SIMPLEX
-cam= cv2.VideoCapture(0)
-# cam = cv2.VideoCapture(gstreamer_pipeline(), cv2.CAP_GSTREAMER*)
+font = cv2.FONT_HERSHEY_SIMPLEX
+cam = cv2.VideoCapture(gstreamer_pipeline(), cv2.CAP_GSTREAMER)
 
 timeStamp = time.time()
 while True:

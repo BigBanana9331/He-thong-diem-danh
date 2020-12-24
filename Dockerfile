@@ -13,7 +13,8 @@ WORKDIR  /usr/src/app/
 
 # Installing python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
+RUN python3 ./trainSave-jetson.py
 
 # Copy all the files from the project’s root to the working directory
 COPY . .
