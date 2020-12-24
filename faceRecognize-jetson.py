@@ -10,6 +10,7 @@ from threading import Thread
 myDB = db.connectDb()
 cursor = myDB.cursor()
 
+
 def gstreamer_pipeline(
     capture_width=3280,
     capture_height=2464,
@@ -53,7 +54,7 @@ font=cv2.FONT_HERSHEY_SIMPLEX
 cam= cv2.VideoCapture(0)
 # cam = cv2.VideoCapture(gstreamer_pipeline(), cv2.CAP_GSTREAMER*)
 
-timeStamp=time.time()
+timeStamp = time.time()
 while True:
     _,frame=cam.read()
     frameSmall=cv2.resize(frame,(0,0),fx=scaleFactor,fy=scaleFactor)
