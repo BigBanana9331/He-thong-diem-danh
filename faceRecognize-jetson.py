@@ -61,7 +61,6 @@ while True:
     # frameRGB=cv2.cvtColor(frameSmall,cv2.COLOR_BGR2RGB)
     facePositions=face_recognition.face_locations(frameRGB,model='cnn')
     allEncodings=face_recognition.face_encodings(frameRGB,facePositions)
-
     recogName = ""
     # if process:
     #     facePositions=face_recognition.face_locations(frameRGB,model='cnn')
