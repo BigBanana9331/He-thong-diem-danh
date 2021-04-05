@@ -3,12 +3,12 @@ import cv2
 import os
 import pickle
 import time
-import db 
+# import db 
 import numpy as np
 from threading import Thread
 
-myDB = db.connectDb()
-cursor = myDB.cursor()
+# myDB = db.connectDb()
+# cursor = myDB.cursor()
 
 
 def gstreamer_pipeline(
@@ -87,7 +87,7 @@ while True:
         recogName = name
     
     data = (1, recogName)
-    db.updateStudentsStatus(myDB, cursor, data)
+    # db.updateStudentsStatus(myDB, cursor, data)
     dt=time.time()-timeStamp
     fps=1/dt
     fpsReport=.90*fpsReport + .1*fps

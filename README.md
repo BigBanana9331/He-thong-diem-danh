@@ -33,4 +33,5 @@ Neu tren Windows chay:
 # Stack
 MySQL
 OpenCV2
+Python
 

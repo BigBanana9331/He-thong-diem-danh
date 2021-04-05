@@ -3,10 +3,10 @@ import cv2
 import os
 import pickle
 import time
-import db 
+# import db 
 import numpy as np
-myDB = db.connectDb()
-cursor = myDB.cursor()
+# myDB = db.connectDb()
+# cursor = myDB.cursor()
 
 print(cv2.version)
 
@@ -50,7 +50,7 @@ while True:
         cv2.putText(frame,name,(left,top-6),font,.75,(0,0,255),2)
         print("Day la mat cua: ", name)
         data = ("in", name)
-        db.updateStudentsStatus(myDB, cursor, data)
+        # db.updateStudentsStatus(myDB, cursor, data)
 
     dt = time.time()-timeStamp
     fps = 1/dt
