@@ -8,7 +8,7 @@ import numpy as np
 # myDB = db.connectDb()
 # cursor = myDB.cursor()
 
-print(cv2.version)
+print(cv2.__version__)
 
 fpsReport=0
 scaleFactor=.25
