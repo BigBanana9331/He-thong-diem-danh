@@ -14,9 +14,9 @@ from threading import Thread
 def gstreamer_pipeline(
     capture_width=3280,
     capture_height=2464,
-    display_width=820,
-    display_height=616,
-    framerate=21,
+    display_width=1920,
+    display_height=1080,
+    framerate=30,
     flip_method=0,
 ):
     return (
@@ -84,14 +84,14 @@ while True:
         cv2.rectangle(frame,(left,top),(right, bottom),(0,0,255),2)
         cv2.putText(frame,name,(left,top-6),font,.75,(0,0,255),2)
         print("Day la mat cua: ", name)
-        recogName = name
+        # recogName = name
     
-    data = (1, recogName)
+    # data = (1, recogName)
     # db.updateStudentsStatus(myDB, cursor, data)
     dt=time.time()-timeStamp
     fps=1/dt
     fpsReport=.90*fpsReport + .1*fps
-    print('fps is:',round(fpsReport,1))
+    # print('fps is:',round(fpsReport,1))
     timeStamp=time.time()
     cv2.rectangle(frame,(0,0),(100,40),(0,0,255),-1)
     cv2.putText(frame,str(round(fpsReport,1))+ 'fps',(0,25),font,.75,(0,255,255,2))

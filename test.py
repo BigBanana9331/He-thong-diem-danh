@@ -11,6 +11,6 @@ d_array1.upload(h_array1)
 d_array2.upload(h_array2)
 
 start = time.time()
-cv.gemm(d_array1, d_array2, 1, None, 0, None, 1)
+cv.cuda.gemm(d_array1, d_array2, 1, None, 0, None, 1)
 end = time.time()
 print("Time elapsed:", end - start, "sec")
